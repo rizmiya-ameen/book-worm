@@ -1,0 +1,10 @@
+.BookDetail {
+display: flex;
+flex-direction: column;
+}
+
+.image-bookdetails {
+  display: flex;
+  flex-direction: row;
+  flex: 2fr 1fr;
+}
