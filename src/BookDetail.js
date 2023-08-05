@@ -11,21 +11,23 @@ function BookDetail () {
   const [book, setBook] = useState({})
 
   const handleBooks = () => {
-    fetch(`https://www.googleapis.com/books/v1/volumes/${params.bookID}?key=${BOOKS_API_KEY}`)
-      .then(res => res.json())
-      .then(res => setBook(res))
-      //.then(res => console.log(res.id))
+    
+      fetch(`https://www.googleapis.com/books/v1/volumes/${params.bookID}?key=${BOOKS_API_KEY}`)
+        .then(res => res.json())
+        .then(res => setBook(res))
+        //.then(res => console.log(res.id))
+    
   };
 
   
   useEffect(handleBooks, [params.bookID])
   
   if (!params.bookID) {
-    return <p> </p>
+    return <p>Please select a book to view.</p>;
   }
 
   if (!book) {
-    return <div> </div>; 
+    return <p>Failed to fetch book details. Please try again later.</p>;
   }
   
 
@@ -60,9 +62,17 @@ function BookDetail () {
           <p>publisher: {publisher}</p>
           <p>publishedDate: {publishedDate}</p>
           <p>pageCount: {pageCount}</p>
-          {industryIdentifiers && industryIdentifiers.length > 0 && 
-          industryIdentifiers[1].type === 'ISBN_13' && <p>ISBN_13: {industryIdentifiers[1].identifier}</p> 
-          }
+
+          {/*{industryIdentifiers && industryIdentifiers.length > 0 && 
+          industryIdentifiers[1].type === 'ISBN_13' && <p>ISBN_13: {industryIdentifiers[1].identifier}</p>}*/}
+
+            {industryIdentifiers && industryIdentifiers.length > 0 && 
+          industryIdentifiers[0].type === 'ISBN_13'
+              ? <p>ISBN_13: {industryIdentifiers[0].identifier}</p>
+              : industryIdentifiers && industryIdentifiers.length > 0 && 
+              industryIdentifiers[1].type === 'ISBN_13'
+                ? <p>ISBN_13: {industryIdentifiers[1].identifier}</p> 
+                : null}
         </div>
 
         <div>

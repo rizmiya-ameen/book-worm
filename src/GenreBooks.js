@@ -3,18 +3,23 @@ import { Link } from 'react-router-dom'
 
 function GenreBooks ({fetchedBooks}) {
 
+  // Use the slice() method to get the first 5 elements of the array
+  const firstFiveBooks = fetchedBooks.slice(0, 5);
+  //const firstFiveBooks = buttonClick ? fetchedBooks : fetchedBooks.slice(0, 5)
+  
   return (
 
     <div className="GenreBooks">
 
-      {fetchedBooks.map(item => {
+
+      {firstFiveBooks.map(item => {
         
         const { id, volumeInfo } = item;
         const { title, imageLinks, authors, averageRating, ratingsCount} = volumeInfo;
         //const { listPrice, isEbook, buyLink } = saleInfo;
 
          
-        if (imageLinks && authors && authors.length > 0) {
+        if (imageLinks && title && authors && authors.length > 0) {
         return (
           
           <div key={id}>

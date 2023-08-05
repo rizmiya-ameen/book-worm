@@ -2,7 +2,7 @@
   position: fixed;
   left: 0;
   bottom: 0;
-  top: 0;
+  top: 120px;
   background-color: rgb(134, 131, 131);
   width: 100px;
   z-index: 200;
