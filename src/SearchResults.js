@@ -2,7 +2,7 @@ import './SearchResults.css'
 import { useEffect, useState } from 'react'
 import { useParams, Link } from "react-router-dom"
 import { BOOKS_API_KEY } from "./Key"
-//import NavBar from './NavBar'
+import { Pagination } from '@mui/material'
 
 function SearchResults () {
 
@@ -15,25 +15,17 @@ function SearchResults () {
 
   const [searchedBooks, setSearchedBooks] = useState([])
 
-
-  
-  /*
-  const handleSearchedBooks = () => {
-    setSearchedBooks([]);
-
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${params.queryText}+inauthor:${params.queryText}&key=AIzaSyACR0jTiW-C98utWV7Sl3TMSumKVTvsrZY&langRestrict=en&orderBy=newest&maxResults=40&printType=books`)
-    .then(res => res.json())
-    .then(res => setSearchedBooks(res.items))
-  }
-  */
+  const [startIndex, setStartIndex] = useState(0)
+  const itemsPerPage = 20;
+  const currentPage = Math.floor(startIndex / itemsPerPage) + 1;
 
   const handleSearchedBooks = () => {
     setSearchedBooks([]);
     
     (params.queryText ?
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${params.queryText}+inauthor:${params.queryText}&key=${BOOKS_API_KEY}&langRestrict=en&orderBy=newest&maxResults=40&printType=books`) 
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${params.queryText}+inauthor:${params.queryText}&key=${BOOKS_API_KEY}&langRestrict=en&orderBy=newest&startIndex=${startIndex}&maxResults=20&printType=books`) 
     : 
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=subject:${params.Text}&orderBy=newest&maxResults=40&key=${BOOKS_API_KEY}&langRestrict=en`)
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=subject:${params.Text}&orderBy=newest&startIndex=${startIndex}&maxResults=20&key=${BOOKS_API_KEY}&langRestrict=en`)
     )
     
     .then(res => res.json())
@@ -61,8 +53,17 @@ function SearchResults () {
   }
 
 
-  useEffect(handleSearchedBooks, [params.queryText, params.Text])
+  useEffect(() => {
+    setStartIndex(1);
+  }, [params.queryText, params.Text]);
 
+  const handlePageChange = (event, page) => {
+    const newStartIndex = (page - 1) * itemsPerPage;
+    setStartIndex(newStartIndex);
+  };
+  
+  
+  useEffect(handleSearchedBooks, [params.queryText, params.Text, startIndex])
   
 
   return (
@@ -83,6 +84,9 @@ function SearchResults () {
 
         <p>Search results here for {params.queryText || params.Text}</p>
       )}
+
+
+      <Pagination color='primary' count={10} page={currentPage} onChange={handlePageChange} />
       
       <div className="search-books">
 
@@ -117,9 +121,7 @@ function SearchResults () {
 
       </div>
               
-        
     </div>
   )
 }
 export default SearchResults
-

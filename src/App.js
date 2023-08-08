@@ -1,53 +1,68 @@
-//import BookLibrary from './BookLibrary';
 import './App.css';
-import { Routes, Route} from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import BookDetail from './BookDetail';
 import NotFoundPage from './NotFoundPage'
-//import GenreBooks from './GenreBooks';
 import SearchResults from './SearchResults';
 import Header from './Header';
-//import NavBar from './NavBar';
-import SideBar from './SideBar';
-import HomePage from './HomePage'
+import Favorite from './Favorite';
+import MyShelf from './MyShelf'
+import BookLibrary from './BookLibrary';
+
 
 function App() {
-
   
+
   return (
     <div className="App">
 
-      
-      <Routes>
-
-
-       <Route path='/' element={<><Header /><SideBar /><HomePage /></>} /> 
-
-       
-
-        <Route path=':bookID'element={<BookDetail />}/> 
         
-        <Route path='/search' element={<><Header /></>} /> 
+      <Routes>
+      
+       <Route 
+          path='/' 
+          element={<><Header /><BookLibrary /></>} 
+        /> 
+
+       <Route
+          exact path='/favorite'
+          element={<Favorite />}
+        />
+
+        <Route
+          exact path='/myshelf'
+          element={<MyShelf />}
+        />
 
         <Route 
-            path='/search/:queryText'
-            element={<><SearchResults /><Header /></>}
-          />
+          path=':bookID'
+          element={<><BookDetail /></>}
+        /> 
+        
+        <Route 
+          path='/search' 
+          element={<><Header /></>} 
+        /> 
 
-          
-          <Route path='/genre' element={null} /> 
-          <Route 
-            path='/genre/:Text'
-            element={<><SearchResults /><Header /></>}
-  />
+        <Route 
+          path='/search/:queryText'
+          element={<><SearchResults /><Header /></>}
+        />
 
-     
-          
+        <Route 
+          path='/genre' 
+          element={null} 
+        /> 
 
+        <Route 
+          path='/genre/:Text'
+          element={<><SearchResults /><Header /></>}
+        />
 
+        <Route 
+          path='*' 
+          element={<NotFoundPage />}
+        />
 
-
-
-        <Route path='*' element={<NotFoundPage />}/>
       </Routes>
       
   

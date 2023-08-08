@@ -1,7 +1,10 @@
-.GenreBooks {
+.Favorite {
   margin: 80px;
+}
+
+.favorite-books {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   column-gap: 16px;
   row-gap: 40px; 
   gap: 10px;
