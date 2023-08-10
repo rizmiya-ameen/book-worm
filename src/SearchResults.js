@@ -78,7 +78,7 @@ function SearchResults () {
         <div>
           
           <p>Your search - {params.queryText || params.Text} - did not match any books </p> 
-          <img src='https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnh3dGNoOTJrZWlsN2doaTE5MWRudWV4MjR1aHNqeWZzbmJ4bG5sNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/l2JdURjPOMRsMixGw/200_d.gif' alt=''/>
+          <img src='https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnh3dGNoOTJrZWlsN2doaTE5MWRudWV4MjR1aHNqeWZzbmJ4bG5sNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/l2JdURjPOMRsMixGw/200_d.gif' alt='' />
         </div>
       )  : (
 
@@ -103,7 +103,10 @@ function SearchResults () {
 
                 {imageLinks && imageLinks.thumbnail &&
                   <Link to={`/${id}`}> 
-                    <img src={imageLinks.thumbnail} alt={title}/>
+                    <img src={imageLinks.thumbnail} alt={title} width='150px' height='200px'  object-fit='cover'
+                    float='left'
+    
+   />
                   </Link>
                 }
     

@@ -7,64 +7,65 @@ import Header from './Header';
 import Favorite from './Favorite';
 import MyShelf from './MyShelf'
 import BookLibrary from './BookLibrary';
-
+import Container from '@mui/material/Container';
 
 function App() {
   
 
   return (
     <div className="App">
-
-        
-      <Routes>
       
-       <Route 
-          path='/' 
-          element={<><Header /><BookLibrary /></>} 
-        /> 
-
-       <Route
-          exact path='/favorite'
-          element={<Favorite />}
-        />
-
-        <Route
-          exact path='/myshelf'
-          element={<MyShelf />}
-        />
-
-        <Route 
-          path=':bookID'
-          element={<><BookDetail /></>}
-        /> 
+      <Container>
         
-        <Route 
-          path='/search' 
-          element={<><Header /></>} 
-        /> 
+        <Routes>
+        
+          <Route 
+            path='/' 
+            element={<><Header /><BookLibrary /></>} 
+          /> 
 
-        <Route 
-          path='/search/:queryText'
-          element={<><SearchResults /><Header /></>}
-        />
+          <Route
+            exact path='/favorite'
+            element={<Favorite />}
+          />
 
-        <Route 
-          path='/genre' 
-          element={null} 
-        /> 
+          <Route
+            exact path='/myshelf'
+            element={<MyShelf />}
+          />
 
-        <Route 
-          path='/genre/:Text'
-          element={<><SearchResults /><Header /></>}
-        />
+          <Route 
+            path=':bookID'
+            element={<><BookDetail /></>}
+          /> 
+          
+          <Route 
+            path='/search' 
+            element={<><Header /></>} 
+          /> 
 
-        <Route 
-          path='*' 
-          element={<NotFoundPage />}
-        />
+          <Route 
+            path='/search/:queryText'
+            element={<><SearchResults /><Header /></>}
+          />
 
-      </Routes>
-      
+          <Route 
+            path='/genre' 
+            element={null} 
+          /> 
+
+          <Route 
+            path='/genre/:Text'
+            element={<><SearchResults /><Header /></>}
+          />
+
+          <Route 
+            path='*' 
+            element={<NotFoundPage />}
+          />
+
+        </Routes>
+      </Container>
   
     </div>
   );

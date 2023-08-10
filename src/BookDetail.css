@@ -1,6 +1,7 @@
 .BookDetail {
   display: flex;
   flex-direction: column;
+ 
 }
   
 .image-bookdetails {
