@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import GenreBooks from './GenreBooks'
 import { BOOKS_API_KEY } from "./Key"
 import './BookLibrary.css'
+import { Container, Typography } from '@mui/material'
 
 
 function BookLibrary () {
@@ -46,20 +47,20 @@ function BookLibrary () {
 
 
   return (
-    <div className="BookLibrary">
+    <Container sx={{marginTop: '200px'}}>
       
       {category.map((category) => (
-        <div key={category}>
-          <h3>{category}</h3>
+        <Container key={category}>
+          <Typography variant="subtitle1" component="subtitle2" sx={{paddingX:'24px'}}>{category}</Typography>
           <GenreBooks 
             category={category}
             fetchedBooks={fetchedBooks[category] || []}
             
           />
-        </div>
+        </Container>
       ))}
       
-    </div>
+    </Container>
   )
 }
 

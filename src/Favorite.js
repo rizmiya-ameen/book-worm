@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Favorite.css'
+import { Grid, Typography, Box, Paper, Container, Button, IconButton, } from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Favorite () {
 
@@ -33,10 +35,108 @@ function Favorite () {
 
   return (
 
-    <div className="Favorite">
+    <Container sx={{marginY: '50px'}}>
 
       <Link to={'/'}><button>Home</button></Link>
-      <h2>Favorite Books {favorite.length}</h2>
+
+      <Typography>Favorite Books {favorite.length}</Typography>
+
+      <Button onClick={handleRemoval} size="small" variant="outlined" color="primary">
+        Clear All
+      </Button>
+
+      <Grid container spacing={5} sx={{marginY: '10px'}}>
+
+        {favorite && favorite.map(item => (
+          
+          <Grid item xs={2.4}>
+
+            <Paper elevation={3}  sx={{height: '400px', display: 'flex', flexDirection: 'column', position: 'relative'}}> 
+
+            
+              <Box sx={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
+                <img className='book-thumbnail' src={item.image} alt={item.title}/>
+              </Box>
+
+              <Box sx={{paddingX:'15px'}}>
+
+                <Typography sx={{display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                fontSize: '17px', fontWeight: 'bold'}}>
+                  {item.title}
+                </Typography>
+
+                {item.authors.length > 1 ? <Typography className='author-name'>{item.authors[0]} and more</Typography> : <Typography className='author-name'>{item.authors[0]}</Typography>}
+          
+              </Box>
+          
+              <Box sx={{ display: 'flex', position: 'absolute', bottom: '5px', right: '5px'}}>
+                <IconButton onClick={() => handleRemovalofOne(item)} aria-label="delete" size="small" color="primary">
+                  <DeleteIcon fontSize="inherit"/>
+                </IconButton>
+              </Box>
+              
+            </Paper>
+          </Grid>
+
+        ))}
+
+      </Grid>
+      
+        
+    </Container>
+  )
+}
+
+export default Favorite
+
+/*
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Favorite.css'
+import { Pagination, Stack, Grid, Typography, Box, Paper, Container, Rating, IconButton, } from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete';
+
+function Favorite () {
+
+  
+  const [favorite, setFavorite] = useState([]);
+
+  const handleRemoval = () => {
+    localStorage.removeItem('favoriteBooks');
+    setFavorite([]);
+  }
+
+  const handleRemovalofOne = (clickedObject) => {
+    const removeBook = favorite.filter(item => item !== clickedObject)
+    setFavorite(removeBook)
+    localStorage.setItem('favoriteBooks', JSON.stringify(removeBook)); // Update the local storage after removing the book
+  }
+
+
+  //to get favorites from local storage on component mount
+  useEffect(() => {
+    const storedFavorites = localStorage.getItem('favoriteBooks');
+    //if storedFavorites is empty on component mount it results an error
+    if (storedFavorites) {
+      setFavorite(JSON.parse(storedFavorites));
+    }
+  }, []);
+
+  //console.log(favorite)
+  
+
+  return (
+
+    <Container sx={{marginY: '0px'}}>
+
+      <Link to={'/'}><button>Home</button></Link>
+
+      <Typography>Favorite Books {favorite.length}</Typography>
+
       <button onClick={handleRemoval}>Clear All</button>
 
       <div className='favorite-books'>
@@ -52,6 +152,9 @@ function Favorite () {
             {item.authors.length > 1 ? <p>{item.authors[0]} and more</p> : <p>{item.authors[0]}</p>}
 
             <button onClick={() => handleRemovalofOne(item)}>Remove</button>
+            <IconButton onClick={() => handleRemovalofOne(item)} aria-label="delete" size="small" color="primary">
+              <DeleteIcon fontSize="inherit"/>
+            </IconButton>
 
           </div>
 
@@ -60,8 +163,10 @@ function Favorite () {
       </div>
       
         
-    </div>
+    </Container>
   )
 }
 
 export default Favorite
+
+*/

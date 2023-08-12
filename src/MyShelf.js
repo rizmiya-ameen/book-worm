@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './MyShelf.css'
+import { Typography, Container,} from '@mui/material'
+import ShelfSelection from './ShelfSelection';
+
 
 function MyShelf () {
 
@@ -89,112 +92,324 @@ function MyShelf () {
 
   return (
 
-    <div className="MyShelf">
+    <Container sx={{marginY: '50px'}}>
       
       <Link to={'/'}><button>Home</button></Link>
-      <h2>MyShelf</h2>
 
-      <div className='to-read'>
+      <Typography>MyShelf</Typography>
+
+      <ShelfSelection 
+        sectionTitle='To-Read'
+        buttonText='Move to Reading'
+        handleRemovalofAll={handleRemovalToRead}
+        books={toReadBooks}
+        handleRemovalofOne={handleRemoveOneToRead}
+        handleMoveToNext={handleMoveToReading}
+      />
+
+      <ShelfSelection 
+        sectionTitle='Reading'
+        buttonText='Move to Completed'
+        handleRemovalofAll={handleRemovalReading}
+        books={readingBooks}
+        handleRemovalofOne={handleRemoveOneReading}
+        handleMoveToNext={handleMoveToCompleted}
+      />
+
+      <ShelfSelection 
+        sectionTitle='Completed'
+        buttonText={null}
+        handleRemovalofAll={handleRemovalCompleted}
+        books={completedBooks}
+        handleRemovalofOne={handleRemoveOneCompleted}
+      />
+            
+      
+        
+    
+    </Container>
+  )
+}
+
+export default MyShelf
+
+
+/*
+
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import './MyShelf.css'
+import { Grid, Typography, Box, Paper, Container, Button, IconButton, } from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete';
+
+
+function MyShelf () {
+
+  const [toReadBooks, setToReadBooks] = useState ([])
+  const [readingBooks, setReadingBooks] = useState ([])
+  const [completedBooks, setCompletedBooks] = useState ([])
+
+
+  //Update the local storage after removing a set of books
+  const handleRemovalToRead = () => {
+    localStorage.removeItem('toReadBooks');
+    setToReadBooks([]);
+  }
+
+  const handleRemovalReading = () => {
+    localStorage.removeItem('readingBooks');
+  setReadingBooks([]);
+  }
+
+  const handleRemovalCompleted = () => {
+    localStorage.removeItem('completedBooks');
+    setCompletedBooks([]);
+  }
+
+
+
+  //Update the local storage after removing one of the books
+  const handleRemoveOneToRead = (clickedObject) => {
+    const removeBook = toReadBooks.filter(item => item !== clickedObject)
+    setToReadBooks(removeBook)
+    localStorage.setItem('toReadBooks', JSON.stringify(removeBook)); // 
+  }
+
+  const handleRemoveOneReading = (clickedObject) => {
+    const removeBook = readingBooks.filter(item => item !== clickedObject)
+    setReadingBooks(removeBook)
+    localStorage.setItem('readingBooks', JSON.stringify(removeBook)); 
+  }
+
+  const handleRemoveOneCompleted = (clickedObject) => {
+    const removeBook = completedBooks.filter(item => item !== clickedObject)
+    setCompletedBooks(removeBook)
+    localStorage.setItem('completedBooks', JSON.stringify(removeBook)); 
+  }
+
+
+  const handleMoveToReading = (clickedObject) => {
+    const movedBook = toReadBooks.filter(item => item !== clickedObject)
+    setReadingBooks([...readingBooks, clickedObject])
+    setToReadBooks(movedBook)
+    localStorage.setItem('toReadBooks', JSON.stringify(movedBook));
+    localStorage.setItem('readingBooks', JSON.stringify([...readingBooks, clickedObject]));
+    //console.log(toReadBooks)
+    //console.log(readingBooks)
+  }
+
+  const handleMoveToCompleted = (clickedObject) => {
+    const movedBook = readingBooks.filter(item => item !== clickedObject)
+    setCompletedBooks([...completedBooks, clickedObject])
+    setReadingBooks(movedBook)
+    localStorage.setItem('readingBooks', JSON.stringify(movedBook));
+    localStorage.setItem('completedBooks', JSON.stringify([...completedBooks, clickedObject]));
+    //console.log(readingBooks)
+    //console.log(completedBooks)
+  }
+
+
+  // Get books from local storage on component mount
+  useEffect(() => {
+    const storedToReadBooks = localStorage.getItem('toReadBooks');
+    if (storedToReadBooks) {
+      setToReadBooks(JSON.parse(storedToReadBooks));
+    }
+    const storedReadingBooks = localStorage.getItem('readingBooks');
+    if (storedReadingBooks) {
+      setReadingBooks(JSON.parse(storedReadingBooks));
+    }
+
+    const storedCompletedBooks = localStorage.getItem('completedBooks');
+    if (storedCompletedBooks) {
+      setCompletedBooks(JSON.parse(storedCompletedBooks));
+    }
+  }, []);
+
+  //console.log(toReadBooks)
+
+  return (
+
+    <Container sx={{marginY: '50px'}}>
+      
+      <Link to={'/'}><button>Home</button></Link>
+
+      <Typography>MyShelf</Typography>
+
+
+
+      <Box>
 
         <h3>To-Read {toReadBooks.length}</h3>
         <button onClick={handleRemovalToRead}>Clear All</button>
         
 
-        <div className='myshelf-books'>
+        <Grid container spacing={5} sx={{marginY: '10px'}}>
 
           {toReadBooks && toReadBooks.map(item => (
 
-            <div key={item.id}>
-              <img src={item.image} alt=''/>
+            <Grid item xs={2.4} key={item.id}>
 
-              <p>{item.title}</p>
+              <Paper elevation={3}  sx={{height: '400px', display: 'flex', flexDirection: 'column', position: 'relative'}}> 
 
-              {item.authors.length > 1 ? <p>{item.authors[0]} and more</p> : <p>{item.authors[0]}</p>}
+                <Box sx={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
+                  <img className='book-thumbnail' src={item.image} alt=''/>
+                </Box>
 
-              <button onClick={() => handleRemoveOneToRead(item)}>Remove</button>
+                <Box sx={{paddingX:'15px'}}>
 
-              <button onClick={() => handleMoveToReading(item)}>Move to Reading</button>
+                  <Typography sx={{display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  fontSize: '17px', fontWeight: 'bold'}}>
+                    {item.title}
+                  </Typography>
 
-            </div>
+                  {item.authors.length > 1 ? <Typography className='author-name'>{item.authors[0]} and more</Typography> : <Typography className='author-name'>{item.authors[0]}</Typography>}
+        
+                </Box>
+
+                <Box sx={{ display: 'flex', position: 'absolute', bottom: '5px', right: '5px'}}>
+
+                  <Button size="small" variant="outlined" color="primary" onClick={() => handleMoveToReading(item)} sx={{fontSize: '12px', paddingX: '5px', paddingY: '0px'}}>
+                  ➔ Reading
+                  </Button>
+
+                  <IconButton onClick={() => handleRemoveOneToRead(item)} aria-label="delete" size="small" color="primary">
+                    <DeleteIcon fontSize="inherit"/>
+                  </IconButton>
+                </Box>
+
+              </Paper>
+
+            </Grid>
 
           ))}
 
-        </div>
+        </Grid>
 
-      </div>
-
-
+      </Box>
 
 
 
-      <div className='reading'>
+
+
+      <Box>
 
         <h3>Reading {readingBooks.length}</h3>
         <button onClick={handleRemovalReading}>Clear All</button>
 
-        <div className='myshelf-books'>
+        <Grid container spacing={5} sx={{marginY: '10px'}}>
 
           {readingBooks && readingBooks.map(item => (
 
-            <div key={item.id}>
+            <Grid item xs={2.4} key={item.id}>
 
-              <img src={item.image} alt=''/>
+              <Paper elevation={3}  sx={{height: '400px', display: 'flex', flexDirection: 'column', position: 'relative'}}> 
 
-              <p>{item.title}</p>
+                <Box sx={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
+                  <img className='book-thumbnail' src={item.image} alt=''/>
+                </Box>
 
-              {item.authors.length > 1 ? <p>{item.authors[0]} and more</p> : <p>{item.authors[0]}</p>}
+                <Box sx={{paddingX:'15px'}}>
 
-              <button onClick={() => handleRemoveOneReading(item)}>Remove</button>
+                  <Typography sx={{display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  fontSize: '17px', fontWeight: 'bold'}}>
+                    {item.title}
+                  </Typography>
 
-              <button onClick={() => handleMoveToCompleted(item)}>Move to Completed</button>
+                  {item.authors.length > 1 ? <Typography className='author-name'>{item.authors[0]} and more</Typography> : <Typography className='author-name'>{item.authors[0]}</Typography>}
+        
+                </Box>
 
-            </div>
+                <Box sx={{ display: 'flex', position: 'absolute', bottom: '5px', right: '5px'}}>
+                  <button onClick={() => handleMoveToCompleted(item)}>Move to Completed</button>
+
+                  <IconButton onClick={() => handleRemoveOneReading(item)} aria-label="delete" size="small" color="primary">
+                    <DeleteIcon fontSize="inherit"/>
+                  </IconButton>
+                </Box>
+
+              </Paper>
+
+            </Grid>
 
           ))}
           
-        </div>
+        </Grid>
 
-      </div>
-
-
+      </Box>
 
 
 
 
-      <div className='completed'>
+
+
+      <Box>
 
         <h3>Completed {completedBooks.length}</h3>
         <button onClick={handleRemovalCompleted}>Clear All</button>
 
-        <div className='myshelf-books'>
+        <Grid container spacing={5} sx={{marginY: '10px'}}>
 
           {completedBooks && completedBooks.map(item => (
 
-              <div key={item.id}>
+              <Grid item xs={2.4} key={item.id}>
 
-                <img src={item.image} alt=''/>
+                <Paper elevation={3}  sx={{height: '400px', display: 'flex', flexDirection: 'column', position: 'relative'}}> 
 
-                <p>{item.title}</p>
+                  <Box sx={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
+                    <img className='book-thumbnail' src={item.image} alt=''/>
+                  </Box>
 
-                {item.authors.length > 1 ? <p>{item.authors[0]} and more</p> : <p>{item.authors[0]}</p>}
-                
-                <button onClick={() => handleRemoveOneCompleted(item)}>Remove</button>
+                  <Box sx={{paddingX:'15px'}}>
+
+                    <Typography sx={{display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    fontSize: '17px', fontWeight: 'bold'}}>
+                      {item.title}
+                    </Typography>
+
+                    {item.authors.length > 1 ? <Typography className='author-name'>{item.authors[0]} and more</Typography> : <Typography className='author-name'>{item.authors[0]}</Typography>}
+          
+                  </Box>
+
+                  <Box sx={{ display: 'flex', position: 'absolute', bottom: '5px', right: '5px'}}>
+                    <IconButton onClick={() => handleRemoveOneCompleted(item)} aria-label="delete" size="small" color="primary">
+                      <DeleteIcon fontSize="inherit"/>
+                    </IconButton>
+                  </Box>
+
+                </Paper>
               
-              </div>
+              </Grid>
 
             ))}
 
-        </div>
+        </Grid>
 
-      </div>
+      </Box>
       
       
         
     
-    </div>
+    </Container>
   )
 }
 
 export default MyShelf
+
+
+
+*/
 
 

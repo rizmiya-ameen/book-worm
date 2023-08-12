@@ -2,7 +2,10 @@ import './BookDetail.css'
 import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect} from 'react'
 import { BOOKS_API_KEY } from "./Key"
-
+import { Typography, Box, Paper, Container, Button, Card, CardMedia, AppBar, Toolbar, } from '@mui/material'
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import GoogleIcon from '@mui/icons-material/Google';
 
 
 function BookDetail () {
@@ -18,7 +21,7 @@ function BookDetail () {
     fetch(`https://www.googleapis.com/books/v1/volumes/${params.bookID}?key=${BOOKS_API_KEY}`)
       .then(res => res.json())
       .then(res => setBook(res))
-      //.then(res => console.log(res.id))
+      //.then(res => console.log(res))
     
   };
 
@@ -97,8 +100,9 @@ function BookDetail () {
   }
   
 
-  const {volumeInfo = {}} = book;
-  const {title, authors, categories, description, imageLinks = {}, industryIdentifiers, publisher, publishedDate, pageCount} = volumeInfo;
+  const {volumeInfo = {}, saleInfo = {}} = book;
+  const {title, authors, categories, description, imageLinks = {}, industryIdentifiers, publisher, publishedDate, pageCount, previewLink, } = volumeInfo;
+  const {isEbook} = saleInfo;
   //if volumeInfo is not present or undefined, assigned to an empty object as its default value
 
 
@@ -120,59 +124,117 @@ function BookDetail () {
 
   return (
 
-    <div className="BookDetail">
+    <Container sx={{marginY: '50px', display: 'flex', flexDirection: 'column', }}>
 
-      <div className='image-bookdetails'>
-
+      <AppBar position="fixed" sx={{backgroundColor: 'lightpink'}}>
         <Link to={'/'}><button>Home</button></Link>
+      </AppBar>
 
-        <div>
+      
+
+      <Paper elevation={3} sx={{height: '', display: 'flex', flexDirection: 'row', padding: '30px', position: 'relative'}}>
+
+        <Box sx={{ flex: '2', paddingRight: '80px' }}>
           
-          <p>Title: {title}</p>
-          <p>Author: {authors}</p>
-          <p>publisher: {publisher}</p>
-          <p>publishedDate: {publishedDate}</p>
-          <p>pageCount: {pageCount}</p>
+          <Typography sx={{ fontSize: '30px', fontWeight: 'bold', marginBottom: '30px', }}>{title}</Typography>
+
+          <Typography sx={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '1px', color: 'rgb(1, 121, 202)', }}>{authors}</Typography>
+          
+          <Typography sx={{ fontSize: '15px', marginBottom: '20px', color: 'grey', }}>{publishedDate && new Date(publishedDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} - {publisher}</Typography>
+
+          <Box  sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', columnGap: '30px', marginY: '50px',}}>
+
+            {pageCount && 
+              <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', paddingRight: '30px', borderRight: '1px solid grey'}}>
+                <Typography>Pages</Typography>
+                <Typography>{pageCount}</Typography>
+              </Box>
+            }
+
+            {saleInfo && 
+              <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', paddingRight: '30px', borderRight: '1px solid grey'}}>
+                <Typography>Type</Typography>
+                {isEbook ? <Typography>eBook</Typography> : <Typography>Book</Typography>}
+              </Box>
+            }
+
+            <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', paddingRight: '30px', }}>     
+              {industryIdentifiers && industryIdentifiers.length > 0 && 
+              industryIdentifiers[0].type === 'ISBN_13'
+              ? 
+              <><Typography>ISBN</Typography><Typography>{industryIdentifiers[0].identifier}</Typography>
+              </>
+              : 
+              industryIdentifiers && industryIdentifiers.length > 0 && 
+              industryIdentifiers[1].type === 'ISBN_13'
+              ? 
+              <><Typography>ISBN</Typography><Typography>{industryIdentifiers[1].identifier}</Typography></> 
+              : null}
+            </Box>
+
+            
+  
+          </Box>
+
+          
+          
 
          
 
-          {industryIdentifiers && industryIdentifiers.length > 0 && 
-          industryIdentifiers[0].type === 'ISBN_13'
-          ? 
-          <p>ISBN_13: {industryIdentifiers[0].identifier}</p>
-          : 
-          industryIdentifiers && industryIdentifiers.length > 0 && 
-          industryIdentifiers[1].type === 'ISBN_13'
-          ? 
-          <p>ISBN_13: {industryIdentifiers[1].identifier}</p> 
-          : null}
-  
-  
-          <div>
-            <button onClick={() => handleFavorite(book)}>Favorite</button>
-  
-            <button onClick={() => handleMyShelf(book)}>Add to My Shelf</button>
-          </div>
-  
-  
-        </div>
-  
-        <div>
-            
-          {imageUrl && <img src={imageUrl} alt={title} height='300px' />}
-            
-          {categories ? <p>categories: {categories}</p> : null}
           
-        </div>
   
-      </div>
+          <Box sx={{marginTop: '50px', position: 'absolute', bottom: '30px'}}>
+
+            <Button color="secondary" variant="contained" onClick={() => handleFavorite(book)} startIcon={<FavoriteIcon />} sx={{marginRight: '10px'}}>Favorite</Button>
   
-      <div className='description'>
-        {description ? <p>{removeHTMLTags(description)}</p> : null}
-      </div>
+            <Button color="success" variant="contained" startIcon={<LibraryBooksIcon />} onClick={() => handleMyShelf(book)}>Add to My Shelf</Button>
+
+          </Box>
+  
+  
+        </Box>
+  
+        <Box sx={{ flex: '1', display: 'flex', justifyContent: 'flex-end' }}>
+            
+
+          <Card sx={{ height: '400px', boxShadow: '5' }}>
+          {imageUrl && <CardMedia
+          component="img"
+          image={imageUrl}
+          alt={title}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />}</Card>
+          
+        </Box>
+  
+      </Paper>
+  
+      <Paper elevation={3} sx={{marginY: '50px', padding: '30px'}}>
+        {description ?
+        <>
+          <Typography sx={{marginBottom: '15px', color: 'rgb(1, 121, 202)' }}><strong>About this Book:</strong></Typography>
+          <Typography align="justify">{removeHTMLTags(description)}</Typography> 
+        </> 
+          : null
+        }
+
+        {categories ?
+          <Box sx={{marginTop: '30px'}}>
+            <Typography sx={{fontWeight: 'bold', color: 'rgb(1, 121, 202)', marginBottom: '15px'}}>Categories:</Typography>
+            <Typography>
+              {categories}
+            </Typography> 
+          </Box> 
+          : null
+        }
+
+        {previewLink && <Link to={previewLink}><Button color="primary" variant="contained" endIcon={<GoogleIcon />} sx={{marginTop: '30px'}}>More about This Book...</Button></Link>}
+
+        
+      </Paper>
   
 
-    </div>
+    </Container>
   
   
   )

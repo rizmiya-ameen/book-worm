@@ -1,6 +1,7 @@
-.SearchResults {
+/*.SearchResults {
   margin: 180px;
 }
+
 
 .search-books {
   display: grid;
@@ -9,4 +10,20 @@
   row-gap: 40px; 
   gap: 10px;
 }
+*/
 
+
+.author-name {
+  display: -webkit-box;
+  -webkit-line-clamp: 1; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+}
+
+.book-thumbnail {
+  width: 100%; 
+  height: 250px;
+  object-fit: cover;
+}

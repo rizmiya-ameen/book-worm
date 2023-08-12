@@ -2,7 +2,7 @@ import './SearchResults.css'
 import { useEffect, useState } from 'react'
 import { useParams, Link } from "react-router-dom"
 import { BOOKS_API_KEY } from "./Key"
-import { Pagination } from '@mui/material'
+import { Pagination, Stack, Grid, Typography, Box, Paper, Container, Rating } from '@mui/material'
 
 function SearchResults () {
 
@@ -68,63 +68,95 @@ function SearchResults () {
 
   return (
 
+    <Container sx={{marginY: '200px'}}>
 
-    <div className="SearchResults">
+      <Box sx={{ display: 'flex', justifyContent: 'center'}}>
+        {!searchedBooks || searchedBooks.length === 0 ? (
+          <Box>
+            <Typography>
+              Your search - <strong>{params.queryText || params.Text}</strong> - did not match any books 
+            </Typography> 
+            <img src='/PageNotFound.gif' alt='' height='350px'/>
+          </Box>
+        )  : (
+          <Typography>
+            Search results here for <strong>{params.queryText || params.Text}</strong>
+          </Typography>
+        )}
+      </Box>
 
-      <Link to={'/'}><button>Home</button></Link>
-      
-      {!searchedBooks || searchedBooks.length === 0 ? (
-
-        <div>
-          
-          <p>Your search - {params.queryText || params.Text} - did not match any books </p> 
-          <img src='https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnh3dGNoOTJrZWlsN2doaTE5MWRudWV4MjR1aHNqeWZzbmJ4bG5sNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/l2JdURjPOMRsMixGw/200_d.gif' alt='' />
-        </div>
-      )  : (
-
-        <p>Search results here for {params.queryText || params.Text}</p>
-      )}
-
-
-      <Pagination color='primary' count={10} page={currentPage} onChange={handlePageChange} />
-      
-      <div className="search-books">
+      <Grid container spacing={5} sx={{marginY: '10px'}}>
 
         {searchedBooks && searchedBooks.map(item => {
 
           const {id, volumeInfo} = item;
           const {title, authors, averageRating, ratingsCount, imageLinks} = volumeInfo;
 
-          
           if (imageLinks && title && authors && authors.length > 0) {
+
             return ( 
 
-              <div key={id} className='search-results-books'>
+              <Grid key={id} item xs={2.4}>
 
-                {imageLinks && imageLinks.thumbnail &&
-                  <Link to={`/${id}`}> 
-                    <img src={imageLinks.thumbnail} alt={title} width='150px' height='200px'  object-fit='cover'
-                    float='left'
-    
-   />
-                  </Link>
-                }
-    
-                <p>{title}</p>
-    
-                {authors.length > 1 ? <p>{authors[0]} and more</p> : <p>{authors[0]}</p>}
-                
-                {averageRating && ratingsCount && <p>{averageRating} ★ ({ratingsCount})</p>}
+                <Paper key={id} elevation={3}  sx={{height: '400px', display: 'flex', flexDirection: 'column', position: 'relative'}}>      
 
-              </div>
+                <Box sx={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
+                  {imageLinks && imageLinks.thumbnail &&
+                    <Link to={`/${id}`}> 
+                      <img src={imageLinks.thumbnail} alt={title}   className='book-thumbnail' />
+                    </Link>
+                  }
+                </Box>
+    
+                <Box sx={{paddingX:'15px'}}>
+
+                  <Typography sx={{display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  fontSize: '17px', fontWeight: 'bold'}}>
+                    {title}
+                  </Typography>
+
+                  {authors.length > 1 ? <Typography className='author-name'>{authors[0]} and more</Typography> : <Typography className='author-name'>{authors[0]}</Typography>}
+
+                  {averageRating && ratingsCount &&
+                  <Box sx={{display: 'flex'}}>
+                  
+                  <Rating name="read-only" value={averageRating} readOnly precision={0.5} size='small' sx={{position: 'absolute', bottom: '8px', left: '9px'}}/>
+
+                  <Typography sx={{fontSize: '12px', position: 'absolute', bottom: '8px', right: '9px'}}>
+                    ({ratingsCount} reviews)
+                  </Typography>
+                  
+                  </Box>}
+  
+        
+                </Box>
+
+                </Paper>
+
+              </Grid>
+
+              
             )
-          } else { return null}
+          } else { 
+            return null
+          }
         
         })}
 
-      </div>
-              
-    </div>
+      </Grid>
+
+      {searchedBooks && searchedBooks.length > 0 && 
+        <Stack spacing={5} sx={{marginTop: '50px'}}>
+          <Pagination count={10} variant="outlined" shape="rounded" page={currentPage} onChange={handlePageChange} color="primary" sx={{ display: 'flex', justifyContent: 'center',}}/>
+        </Stack>
+      }
+
+    </Container>
+
   )
 }
 export default SearchResults
