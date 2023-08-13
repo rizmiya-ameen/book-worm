@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Favorite.css'
-import { Grid, Typography, Box, Paper, Container, Button, IconButton, } from '@mui/material'
+import { AppBar, Grid, Typography, Box, Paper, Container, Button, IconButton, Toolbar, } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
 
 function Favorite () {
@@ -37,13 +37,24 @@ function Favorite () {
 
     <Container sx={{marginY: '50px'}}>
 
-      <Link to={'/'}><button>Home</button></Link>
+      <AppBar  position="fixed" sx={{backgroundColor: 'lightpink', height:'70px'}}> 
 
-      <Typography>Favorite Books {favorite.length}</Typography>
+        <Toolbar sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
 
-      <Button onClick={handleRemoval} size="small" variant="outlined" color="primary">
-        Clear All
-      </Button>
+          <Link to={'/'}>
+            <Box sx={{marginTop: '40px'}}>
+              <img src='/bookworm.png' alt='Book Worm' height='100px'/>
+            </Box>
+          </Link>
+
+          <Typography sx={{color: 'black'}}>
+            Favorite Books ({favorite.length})
+          </Typography>
+
+        </Toolbar>
+        
+      </AppBar>
+      
 
       <Grid container spacing={5} sx={{marginY: '10px'}}>
 
@@ -85,6 +96,14 @@ function Favorite () {
         ))}
 
       </Grid>
+
+      <Box sx={{display: 'flex', justifyContent: 'center', marginTop: '50px'}}>
+        <Button onClick={handleRemoval} size="small" variant="contained" sx={{bgcolor: "Red", '&:hover': {
+        bgcolor: 'darkred', 
+      },}} >
+          Clear All
+        </Button>
+      </Box>
       
         
     </Container>

@@ -48,9 +48,11 @@ function Header () {
 
       <AppBar position="fixed" sx={{backgroundColor: 'lightpink'}}>
 
-        <Toolbar sx={{height: '100px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+        <Toolbar  sx={{height: '100px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
 
-          <img src='' alt='Book Worm'/>
+          <Box sx={{marginTop: '50px'}}>
+            <img src='/bookworm.png' alt='Book Worm' height='150px'/>
+          </Box>
 
           <FormControl onSubmit={handleSearch} sx={{display: 'flex', flexDirection: 'row', }}>
             <Search>

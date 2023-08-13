@@ -62,12 +62,8 @@ function GenreBooks ({fetchedBooks}) {
                     
                     <Rating name="read-only" value={averageRating} readOnly precision={0.5} size='small' sx={{position: 'absolute', bottom: '8px', left: '9px'}}/>
 
-                    {/*<Typography variant='body2' component='p' marginLeft={0.5} sx={{position: 'absolute', bottom: '0px'}}>
-                      {averageRating}
-                  </Typography>*/}
-
                     <Typography sx={{fontSize: '12px', position: 'absolute', bottom: '8px', right: '9px'}}>
-                      ({ratingsCount} reviews)
+                    ({ratingsCount} {ratingsCount === 1 ? 'review' : 'reviews'})
                     </Typography>
                     
                   </Box>}

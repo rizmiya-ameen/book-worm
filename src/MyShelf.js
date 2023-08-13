@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './MyShelf.css'
-import { Typography, Container,} from '@mui/material'
+import { Button, Paper, AppBar, Toolbar, Box, Typography, Container,} from '@mui/material'
 import ShelfSelection from './ShelfSelection';
 
 
@@ -11,6 +11,7 @@ function MyShelf () {
   const [readingBooks, setReadingBooks] = useState ([])
   const [completedBooks, setCompletedBooks] = useState ([])
 
+  const myShelfBooksCount = (toReadBooks.length + readingBooks.length + completedBooks.length)
 
   //Update the local storage after removing a set of books
   const handleRemovalToRead = () => {
@@ -92,38 +93,90 @@ function MyShelf () {
 
   return (
 
-    <Container sx={{marginY: '50px'}}>
+    <Container sx={{marginY: '120px',}}>
       
-      <Link to={'/'}><button>Home</button></Link>
+      <AppBar  position="fixed" sx={{backgroundColor: 'lightpink', height:'70px'}}> 
 
-      <Typography>MyShelf</Typography>
+        <Toolbar sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
 
-      <ShelfSelection 
-        sectionTitle='To-Read'
-        buttonText='Move to Reading'
-        handleRemovalofAll={handleRemovalToRead}
-        books={toReadBooks}
-        handleRemovalofOne={handleRemoveOneToRead}
-        handleMoveToNext={handleMoveToReading}
-      />
+          <Link to={'/'}>
+            <Box sx={{marginTop: '40px'}}>
+              <img src='/bookworm.png' alt='Book Worm' height='100px'/>
+            </Box>
+          </Link>
 
-      <ShelfSelection 
-        sectionTitle='Reading'
-        buttonText='Move to Completed'
-        handleRemovalofAll={handleRemovalReading}
-        books={readingBooks}
-        handleRemovalofOne={handleRemoveOneReading}
-        handleMoveToNext={handleMoveToCompleted}
-      />
+          <Typography sx={{color: 'black'}}>
+            My Shelf ({myShelfBooksCount})
+          </Typography>
 
-      <ShelfSelection 
-        sectionTitle='Completed'
-        buttonText={null}
-        handleRemovalofAll={handleRemovalCompleted}
-        books={completedBooks}
-        handleRemovalofOne={handleRemoveOneCompleted}
-      />
-            
+        </Toolbar>
+        
+      </AppBar>
+
+
+      <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom: '15px', marginTop: '60px'}}>
+
+        <h3>To-Read ({toReadBooks.length})</h3>
+
+        {toReadBooks.length !== 0 &&
+        <Button onClick={handleRemovalToRead} size="small" variant="contained" sx={{bgcolor: "Red", '&:hover': {
+          bgcolor: 'darkred', 
+        }}}>Clear All</Button>}
+
+      </Box>
+
+      <Paper elevation={3} sx={{position: 'relative' ,
+      height: toReadBooks.length === 0 ? '80px' : '330px', 
+      paddingY: '24px', backgroundImage: 'url(/Shelf2.jpg)', backgroundPosition: 'bottom center', backgroundSize: 'auto 35px', backgroundRepeat: 'repeat-x'}}>
+        <ShelfSelection 
+          buttonText='To Reading'
+          books={toReadBooks}
+          handleRemovalofOne={handleRemoveOneToRead}
+          handleMoveToNext={handleMoveToReading}
+        />
+      </Paper>
+      
+      <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom: '15px', marginTop: '60px'}}>
+
+        <h3>Reading ({readingBooks.length})</h3>
+
+        {readingBooks.length !== 0 && 
+        <Button onClick={handleRemovalReading} size="small" variant="contained" sx={{bgcolor: "Red", '&:hover': {
+          bgcolor: 'darkred', 
+        }}}>Clear All</Button>}
+
+      </Box>
+
+      <Paper elevation={3} sx={{position: 'relative' ,
+      height: readingBooks.length === 0 ? '80px' : '330px', 
+      paddingY: '24px', backgroundImage: 'url(/Shelf2.jpg)', backgroundPosition: 'bottom center', backgroundSize: 'auto 35px', backgroundRepeat: 'repeat-x'}}>
+        <ShelfSelection 
+          buttonText='To Completed'
+          books={readingBooks}
+          handleRemovalofOne={handleRemoveOneReading}
+          handleMoveToNext={handleMoveToCompleted}
+        />
+      </Paper>
+
+
+      <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom: '15px', marginTop: '60px'}}>
+
+        <h3>Completed ({completedBooks.length})</h3>
+        {completedBooks.length !== 0 && <Button onClick={handleRemovalCompleted} size="small" variant="contained" sx={{bgcolor: "Red", '&:hover': {
+          bgcolor: 'darkred', 
+        }}}>Clear All</Button>}
+        
+      </Box>
+
+      <Paper elevation={3} sx={{position: 'relative' ,
+      height: completedBooks.length === 0 ? '80px' : '330px', 
+      paddingY: '24px', backgroundImage: 'url(/Shelf2.jpg)', backgroundPosition: 'bottom center', backgroundSize: 'auto 35px', backgroundRepeat: 'repeat-x'}}>
+        <ShelfSelection 
+          buttonText={null}
+          books={completedBooks}
+          handleRemovalofOne={handleRemoveOneCompleted}
+        />
+      </Paper>      
       
         
     
