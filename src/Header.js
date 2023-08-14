@@ -1,11 +1,12 @@
 import './Header.css'
-import { useNavigate, Outlet, } from "react-router-dom"
+import { useNavigate, Outlet, Link} from "react-router-dom"
 import { useState } from "react"
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import SearchIcon from '@mui/icons-material/Search';
 import * as React from 'react';
+
 
 
 import Tabs from '@mui/material/Tabs';
@@ -25,7 +26,7 @@ function Header () {
   
   const [value, setValue] = useState('0');
 
- 
+
   const handleSearch = event => {
     event.preventDefault()
     navigate(`/search/${query}`)
@@ -35,10 +36,10 @@ function Header () {
   }
 
   const handleText = (event, newValue) => {
-    setValue(newValue);
     const genre = event.currentTarget.textContent;
-    navigate(`/genre/${genre}`);
     
+    navigate(`/genre/${genre}`);
+    setValue(newValue);
   };
     
 
@@ -46,23 +47,31 @@ function Header () {
 
     <Box sx={{ flexGrow: 1 }}>
 
-      <AppBar position="fixed" sx={{backgroundColor: 'lightpink'}}>
+      <AppBar position="fixed" sx={{backgroundColor: '#44318D'}}>
 
         <Toolbar  sx={{height: '100px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
 
-          <Box sx={{marginTop: '50px'}}>
-            <img src='/bookworm.png' alt='Book Worm' height='150px'/>
+          <Box sx={{marginTop: '24px', marginLeft: '24px'}}>
+            <Link to='/'><img src='/bookworm2.png' alt='Book Worm' height='95px' /></Link>
           </Box>
 
-          <FormControl onSubmit={handleSearch} sx={{display: 'flex', flexDirection: 'row', }}>
+          <FormControl 
+            onSubmit={handleSearch} 
+            sx={{
+              display: 'flex', 
+              flexDirection: 'row', 
+            }}>
+              
             <Search>
+
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
+
               <StyledInputBase
                 value={query} 
                 
-                placeholder="Search by Title or Author"
+                placeholder="Search by Title..."
                 inputProps={{ 'aria-label': 'search' }}
                 onChange={event => setQuery(event.target.value)}
               />
@@ -71,6 +80,8 @@ function Header () {
               variant="contained"
               size="small"
               onClick={handleSearch}
+              sx={{marginLeft: '2px', bgcolor: '#d82679', '&:hover': {
+                bgcolor: '#ad0352'}, letterSpacing:'2px' }}
             >
               Search
             </Button>
@@ -79,54 +90,26 @@ function Header () {
 
           <HeaderIcons />
 
-          {/*
-          <Box sx={{display: 'flex', flexDirection: 'row'}}>
-            <Link to={'/favorite'}>
-              <Tooltip title="Favorites" placement="top">
-                <IconButton
-                  size="large"
-                  aria-label="show favorite items"
-                  //color="inherit"
-                  sx={{color: 'white', backgroundColor: 'black',}}
-                >
-                  <Badge badgeContent={5} color="error">
-                    <FavoriteIcon />
-                  </Badge>
-                </IconButton>
-              </Tooltip>
-            </Link> 
-
-            <Link to={'/myshelf'}>
-              <Tooltip title="My Shelf" placement="top">
-                <IconButton
-                  size="large"
-                  aria-label="show favorite items"
-                  //color="inherit"
-                  sx={{color: 'white', backgroundColor: 'black',}}
-                >
-                  <Badge badgeContent={8} color="error">
-                    <LibraryBooksIcon />
-                  </Badge>
-                </IconButton>
-              </Tooltip>
-            </Link>
-          </Box>
-          */}
-
         </Toolbar>
 
-        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-        <Tabs onChange={handleText} centered value={value} indicatorColor="primary">
-          <Tab value="1" label="Fiction" />
-          <Tab value="2" label="Nonfiction" />
-          <Tab value="3" label="Science" />
-          <Tab value="4" label="Politics" />
-          <Tab value="5" label="Business" />
-          <Tab value="6" label="Poetry" />
-          <Tab value="7" label="Law" />
-          <Tab value="8" label="Biography" />
+        
+        <Box sx={{ width: '100%', bgcolor: '#A4B3B6' }}>
+        <Tabs onChange={handleText} centered value={value} indicatorColor="primary" >
+        <Tab value="0" label="Home" component={Link} to="/" sx={{ fontWeight: '700' }} />
+          <Tab value="1" label="Fiction" sx={{fontWeight: '700'}}/>
+          <Tab value="2" label="Nonfiction" sx={{fontWeight: '700'}}/>
+          <Tab value="3" label="Science" sx={{fontWeight: '700'}}/>
+          <Tab value="4" label="Politics" sx={{fontWeight: '700'}}/>
+          <Tab value="5" label="Business" sx={{fontWeight: '700'}}/>
+          <Tab value="6" label="Poetry" sx={{fontWeight: '700'}}/>
+          <Tab value="7" label="Law" sx={{fontWeight: '700'}}/>
+          <Tab value="8" label="Biography" sx={{fontWeight: '700'}}/>
         </Tabs>
-        </Box>
+              </Box>
+              
+
+
+        
 
       </AppBar>
         
@@ -141,7 +124,18 @@ function Header () {
 
 export default Header
 
-
+/*
+<Tabs onChange={handleText} centered value={value} indicatorColor="primary" sx={{color: 'white'}}>
+          <Tab value="1" label="Fiction" />
+          <Tab value="2" label="Nonfiction" />
+          <Tab value="3" label="Science" />
+          <Tab value="4" label="Politics" />
+          <Tab value="5" label="Business" />
+          <Tab value="6" label="Poetry" />
+          <Tab value="7" label="Law" />
+          <Tab value="8" label="Biography" />
+        </Tabs>
+        */
 
 /*
 

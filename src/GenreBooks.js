@@ -1,11 +1,6 @@
 import './GenreBooks.css'
 import { Link } from 'react-router-dom'
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Rating from '@mui/material/Rating';
-import { Container } from '@mui/material';
+import { Grid, Paper, Box, Typography, Container, Rating} from '@mui/material'
 
 function GenreBooks ({fetchedBooks}) {
 
@@ -14,7 +9,11 @@ function GenreBooks ({fetchedBooks}) {
   
   return (
 
-    <Container sx={{marginTop: '15px', marginBottom: '60px'}}>
+    <Container sx={{
+      marginTop: '15px', 
+      marginBottom: '60px'
+      }}
+    >
 
       <Grid container spacing={3} >
 
@@ -48,13 +47,21 @@ function GenreBooks ({fetchedBooks}) {
                 <Box sx={{paddingX:'15px'}}>
 
                   <Typography sx={{display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                fontSize: '16px', fontWeight: '800', color: 'black'}}>{title}</Typography>
+
+                  {/*{authors.length > 1 ? <Typography className='author-name'>{authors[0]} and more</Typography> : <Typography className='author-name'>{authors[0]}</Typography>}*/}
+
+                  <Typography sx={{display: '-webkit-box',
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: 'vertical',
                     overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    fontSize: '17px', fontWeight: 'bold'}}>{title}</Typography>
-
-                  {authors.length > 1 ? <Typography className='author-name'>{authors[0]} and more</Typography> : <Typography className='author-name'>{authors[0]}</Typography>}
+                    textOverflow: 'ellipsis', fontSize: '13px', color: 'grey', fontWeight: '600', marginTop: '5px'}}>
+                      {authors.length > 1 ? `${authors[0]} and more` : authors[0]}
+                    </Typography>
                   
 
                   {averageRating && ratingsCount &&

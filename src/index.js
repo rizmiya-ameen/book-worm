@@ -6,7 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material';
 
-const theme = createTheme()
+const theme = createTheme({
+  typography: {
+    fontFamily: 'Mulish, sans-serif',
+  }})
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

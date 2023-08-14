@@ -23,7 +23,7 @@ function SearchResults () {
     setSearchedBooks([]);
     
     (params.queryText ?
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${params.queryText}+inauthor:${params.queryText}&key=${BOOKS_API_KEY}&langRestrict=en&orderBy=newest&startIndex=${startIndex}&maxResults=20&printType=books`) 
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${params.queryText}+intitle:${params.queryText}&key=${BOOKS_API_KEY}&langRestrict=en&orderBy=newest&startIndex=${startIndex}&maxResults=20&printType=books`) 
     : 
     fetch(`https://www.googleapis.com/books/v1/volumes?q=subject:${params.Text}&orderBy=newest&startIndex=${startIndex}&maxResults=20&key=${BOOKS_API_KEY}&langRestrict=en`)
     )
@@ -111,15 +111,23 @@ function SearchResults () {
                 <Box sx={{paddingX:'15px'}}>
 
                   <Typography sx={{display: '-webkit-box',
-                  WebkitLineClamp: 2,
-                  WebkitBoxOrient: 'vertical',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  fontSize: '17px', fontWeight: 'bold'}}>
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                fontSize: '16px', fontWeight: '800'}}>
                     {title}
                   </Typography>
 
-                  {authors.length > 1 ? <Typography className='author-name'>{authors[0]} and more</Typography> : <Typography className='author-name'>{authors[0]}</Typography>}
+
+                  <Typography sx={{display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis', fontSize: '13px', color: 'grey', fontWeight: '600', marginTop: '5px'}}>
+                  {authors.length > 1 ? `${authors[0]} and more` : authors[0]}
+                </Typography>
+
 
                   {averageRating && ratingsCount &&
                   <Box sx={{display: 'flex'}}>
@@ -151,7 +159,7 @@ function SearchResults () {
 
       {searchedBooks && searchedBooks.length > 0 && 
         <Stack spacing={5} sx={{marginTop: '50px'}}>
-          <Pagination count={10} variant="outlined" shape="rounded" page={currentPage} onChange={handlePageChange} color="primary" sx={{ display: 'flex', justifyContent: 'center',}}/>
+          <Pagination count={5} variant="outlined" shape="rounded" page={currentPage} onChange={handlePageChange} color="primary" sx={{ display: 'flex', justifyContent: 'center',}}/>
         </Stack>
       }
 

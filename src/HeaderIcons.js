@@ -48,7 +48,7 @@ function HeaderIcons () {
                   size="large"
                   aria-label="show favorite items"
                   //color="inherit"
-                  sx={{color: 'white', backgroundColor: 'black',}}
+                  sx={{color: 'white', backgroundColor: '#625694', marginRight: '10px'}}
                 >
                   <Badge badgeContent={favorite.length} color="error">
                     <FavoriteIcon />
@@ -63,7 +63,7 @@ function HeaderIcons () {
                   size="large"
                   aria-label="show favorite items"
                   //color="inherit"
-                  sx={{color: 'white', backgroundColor: 'black',}}
+                  sx={{color: 'white', backgroundColor: '#625694', marginRight: '24px'}}
                 >
                   <Badge badgeContent={myShelfBooksCount} color="error">
                     <LibraryBooksIcon />

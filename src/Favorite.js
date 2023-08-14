@@ -37,17 +37,17 @@ function Favorite () {
 
     <Container sx={{marginY: '50px'}}>
 
-      <AppBar  position="fixed" sx={{backgroundColor: 'lightpink', height:'70px'}}> 
+      <AppBar  position="fixed" sx={{backgroundColor: '#44318D', height:'70px'}}> 
 
         <Toolbar sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
 
           <Link to={'/'}>
-            <Box sx={{marginTop: '40px'}}>
-              <img src='/bookworm.png' alt='Book Worm' height='100px'/>
+          <Box sx={{marginTop: '50px', marginLeft: '15px'}}>
+              <img src='/bookworm2.png' alt='Book Worm' height='85px'/>
             </Box>
           </Link>
 
-          <Typography sx={{color: 'black'}}>
+          <Typography sx={{color: 'white', letterSpacing: '3px'}}>
             Favorite Books ({favorite.length})
           </Typography>
 
@@ -60,7 +60,7 @@ function Favorite () {
 
         {favorite && favorite.map(item => (
           
-          <Grid item xs={2.4}>
+          <Grid key={item.id} item xs={2.4}>
 
             <Paper elevation={3}  sx={{height: '400px', display: 'flex', flexDirection: 'column', position: 'relative'}}> 
 
@@ -76,11 +76,17 @@ function Favorite () {
                 WebkitBoxOrient: 'vertical',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
-                fontSize: '17px', fontWeight: 'bold'}}>
+                fontSize: '16px', fontWeight: '800'}}>
                   {item.title}
                 </Typography>
 
-                {item.authors.length > 1 ? <Typography className='author-name'>{item.authors[0]} and more</Typography> : <Typography className='author-name'>{item.authors[0]}</Typography>}
+                <Typography sx={{display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis', fontSize: '13px', color: 'grey', fontWeight: '600', marginTop: '5px'}}>
+                  {item.authors.length > 1 ? `${item.authors[0]} and more` : item.authors[0]}
+                </Typography>
           
               </Box>
           
@@ -97,15 +103,16 @@ function Favorite () {
 
       </Grid>
 
+      
       <Box sx={{display: 'flex', justifyContent: 'center', marginTop: '50px'}}>
-        <Button onClick={handleRemoval} size="small" variant="contained" sx={{bgcolor: "Red", '&:hover': {
-        bgcolor: 'darkred', 
-      },}} >
+      {favorite.length !== 0 ? 
+        <Button onClick={handleRemoval} size="small" variant="contained" sx={{bgcolor: "#d82679", '&:hover': {
+                bgcolor: '#ad0352'}, letterSpacing: '1px'}} >
           Clear All
-        </Button>
+        </Button> : <Typography sx={{fontWeight: '800', letterSpacing: '1px'}}>No Favorite Books to Display!</Typography>}
       </Box>
       
-        
+      
     </Container>
   )
 }

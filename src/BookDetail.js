@@ -1,4 +1,3 @@
-import './BookDetail.css'
 import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect} from 'react'
 import { BOOKS_API_KEY } from "./Key"
@@ -6,6 +5,7 @@ import { Typography, Box, Paper, Container, Button, Card, CardMedia, AppBar, Too
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import GoogleIcon from '@mui/icons-material/Google';
+import NotFoundPage from './NotFoundPage'
 
 
 function BookDetail () {
@@ -100,7 +100,7 @@ function BookDetail () {
   }
   
 
-  const {volumeInfo = {}, saleInfo = {}} = book;
+  const {volumeInfo = {}, saleInfo = {}, id} = book;
   const {title, authors, categories, description, imageLinks = {}, industryIdentifiers, publisher, publishedDate, pageCount, previewLink, } = volumeInfo;
   const {isEbook} = saleInfo;
   //if volumeInfo is not present or undefined, assigned to an empty object as its default value
@@ -125,18 +125,21 @@ function BookDetail () {
   return (
 
     <Container sx={{marginTop: '150px', display: 'flex', flexDirection: 'column', }}>
+{params.bookID === id ?
+      <Box>
 
-      <AppBar  position="fixed" sx={{backgroundColor: 'lightpink', height:'70px'}}> 
+
+      <AppBar  position="fixed" sx={{backgroundColor: '#44318D', height:'70px'}}> 
 
         <Toolbar sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
 
           <Link to={'/'}>
-            <Box sx={{marginTop: '40px'}}>
-              <img src='/bookworm.png' alt='Book Worm' height='100px'/>
+          <Box sx={{marginTop: '50px', marginLeft: '15px'}}>
+              <img src='/bookworm2.png' alt='Book Worm' height='85px'/>
             </Box>
           </Link>
 
-          <Typography sx={{color: 'black'}}>
+          <Typography sx={{color: 'white', letterSpacing: '3px'}}>
             {title}
           </Typography>
 
@@ -145,7 +148,7 @@ function BookDetail () {
       </AppBar>
 
       
-
+      
       <Paper elevation={3} sx={{height: '', display: 'flex', flexDirection: 'row', padding: '30px', position: 'relative'}}>
 
         <Box sx={{ flex: '2', paddingRight: '80px' }}>
@@ -156,18 +159,20 @@ function BookDetail () {
           
           <Typography sx={{ fontSize: '15px', marginBottom: '20px', color: 'grey', }}>{publishedDate && new Date(publishedDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} - {publisher}</Typography>
 
+
+
           <Box  sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', columnGap: '30px', marginY: '50px',}}>
 
             {pageCount && 
               <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', paddingRight: '30px', borderRight: '1px solid grey'}}>
-                <Typography>Pages</Typography>
+                <Typography sx={{fontWeight: '700'}}>Pages</Typography>
                 <Typography>{pageCount}</Typography>
               </Box>
             }
 
             {saleInfo && 
               <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', paddingRight: '30px', borderRight: '1px solid grey'}}>
-                <Typography>Type</Typography>
+                <Typography sx={{fontWeight: '700'}}>Type</Typography>
                 {isEbook ? <Typography>eBook</Typography> : <Typography>Book</Typography>}
               </Box>
             }
@@ -176,13 +181,13 @@ function BookDetail () {
               {industryIdentifiers && industryIdentifiers.length > 0 && 
               industryIdentifiers[0].type === 'ISBN_13'
               ? 
-              <><Typography>ISBN</Typography><Typography>{industryIdentifiers[0].identifier}</Typography>
+              <><Typography sx={{fontWeight: '700'}}>ISBN</Typography><Typography>{industryIdentifiers[0].identifier}</Typography>
               </>
               : 
               industryIdentifiers && industryIdentifiers.length > 0 && 
               industryIdentifiers[1].type === 'ISBN_13'
               ? 
-              <><Typography>ISBN</Typography><Typography>{industryIdentifiers[1].identifier}</Typography></> 
+              <><Typography sx={{fontWeight: '700'}}>ISBN</Typography><Typography>{industryIdentifiers[1].identifier}</Typography></> 
               : null}
             </Box>
 
@@ -205,10 +210,11 @@ function BookDetail () {
               </Button>*/}
 
             {!favorite.some(item => item.id === book.id) ?
-            <Button color="secondary" variant="contained" onClick={() => handleFavorite(book)} startIcon={<FavoriteIcon />} sx={{marginRight: '10px'}}>
+            <Button color="secondary" variant="contained" onClick={() => handleFavorite(book)} startIcon={<FavoriteIcon />} sx={{marginRight: '10px', bgcolor: '#d82679', '&:hover': {
+              bgcolor: '#ad0352'}, letterSpacing:'1px'}}>
               Favorite
             </Button> : 
-            <Button color="secondary" variant="contained" disabled startIcon={<FavoriteIcon />} sx={{marginRight: '10px'}}>
+            <Button color="secondary" variant="contained" disabled startIcon={<FavoriteIcon />} sx={{marginRight: '10px', letterSpacing:'1px'}}>
             Favorite
             </Button>
             }
@@ -219,10 +225,10 @@ function BookDetail () {
           </Button>*/}
 
           {!toReadBooks.some(item => item.id === book.id) ?
-          <Button color="success" variant="contained" startIcon={<LibraryBooksIcon />} onClick={() => handleMyShelf(book)}>
+          <Button color="success" variant="contained" startIcon={<LibraryBooksIcon />} onClick={() => handleMyShelf(book)} sx={{letterSpacing:'1px'}}>
           Add to My Shelf
             </Button> :
-            <Button color="success" variant="contained" disabled startIcon={<LibraryBooksIcon />}>
+            <Button color="success" variant="contained" disabled startIcon={<LibraryBooksIcon />} sx={{letterSpacing:'1px'}}>
             Add to My Shelf
         </Button>
           }
@@ -270,6 +276,8 @@ function BookDetail () {
 
         
       </Paper>
+
+      </Box> : <NotFoundPage />}
   
 
     </Container>

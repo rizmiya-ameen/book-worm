@@ -32,7 +32,7 @@ function ShelfSelection ({books, handleRemovalofOne, handleMoveToNext, buttonTex
 
       <Carousel responsive={responsive}>
 
-      {books.length === 0 ? <Typography>Shelf is Empty</Typography> : 
+      {books.length === 0 ? <Typography sx={{width: '500px', fontWeight: '700', fontSize: '15px'}}>An Empty Bookshelf Awaits!</Typography> : 
       books && books.map(item => (
 
         <Grid item xs={2.4} key={item.id} sx={{margin: '10px'}}>
@@ -50,13 +50,20 @@ function ShelfSelection ({books, handleRemovalofOne, handleMoveToNext, buttonTex
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               fontSize: '17px', fontWeight: 'bold', margin: '0px'}}>{item.title}</Typography>
-            
-              {item.authors.length > 1 ? <Typography sx={{ letterSpacing: '1px', fontSize: '15px', marginTop: '8px'}}>{item.authors[0]} and more</Typography> : <Typography sx={{ letterSpacing: '1px', fontSize: '15px', marginTop: '8px'}}>{item.authors[0]}</Typography>}
+
+
+                <Typography sx={{display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis', fontSize: '13px', letterSpacing: '1px', marginTop: '8px'}}>
+                  {item.authors.length > 1 ? `${item.authors[0]} and more` : item.authors[0]}
+                </Typography>
 
               <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '10px',}}>
 
                 {buttonText &&
-                <Button size="small" variant="contained" color="primary" onClick={() => handleMoveToNext(item)} sx={{fontSize: '12px', paddingX: '5px', paddingY: '0px'}}>
+                <Button size="small" variant="contained" color="primary" onClick={() => handleMoveToNext(item)} sx={{fontSize: '10px', paddingX: '5px', paddingY: '0px', letterSpacing: '1px'}}>
                 {buttonText}
                 </Button>}
 

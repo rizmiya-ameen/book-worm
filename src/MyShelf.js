@@ -95,17 +95,17 @@ function MyShelf () {
 
     <Container sx={{marginY: '120px',}}>
       
-      <AppBar  position="fixed" sx={{backgroundColor: 'lightpink', height:'70px'}}> 
+      <AppBar  position="fixed" sx={{backgroundColor: '#44318D', height:'70px'}}> 
 
         <Toolbar sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
 
           <Link to={'/'}>
-            <Box sx={{marginTop: '40px'}}>
-              <img src='/bookworm.png' alt='Book Worm' height='100px'/>
+            <Box sx={{marginTop: '50px', marginLeft: '15px'}}>
+              <img src='/bookworm2.png' alt='Book Worm' height='85px'/>
             </Box>
           </Link>
 
-          <Typography sx={{color: 'black'}}>
+          <Typography sx={{color: 'white', letterSpacing: '3px'}}>
             My Shelf ({myShelfBooksCount})
           </Typography>
 
@@ -114,14 +114,13 @@ function MyShelf () {
       </AppBar>
 
 
-      <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom: '15px', marginTop: '60px'}}>
+      <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom: '10px', marginTop: '60px'}}>
 
-        <h3>To-Read ({toReadBooks.length})</h3>
+        <Typography><strong>To-Read</strong> ({toReadBooks.length})</Typography>
 
         {toReadBooks.length !== 0 &&
-        <Button onClick={handleRemovalToRead} size="small" variant="contained" sx={{bgcolor: "Red", '&:hover': {
-          bgcolor: 'darkred', 
-        }}}>Clear All</Button>}
+        <Button onClick={handleRemovalToRead} size="small" variant="contained" sx={{bgcolor: "#d82679", '&:hover': {
+          bgcolor: '#ad0352'}, letterSpacing: '1px'}}>Clear All</Button>}
 
       </Box>
 
@@ -136,14 +135,13 @@ function MyShelf () {
         />
       </Paper>
       
-      <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom: '15px', marginTop: '60px'}}>
+      <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom: '10px', marginTop: '60px'}}>
 
-        <h3>Reading ({readingBooks.length})</h3>
+        <Typography><strong>Reading</strong> ({readingBooks.length})</Typography>
 
         {readingBooks.length !== 0 && 
-        <Button onClick={handleRemovalReading} size="small" variant="contained" sx={{bgcolor: "Red", '&:hover': {
-          bgcolor: 'darkred', 
-        }}}>Clear All</Button>}
+        <Button onClick={handleRemovalReading} size="small" variant="contained" sx={{bgcolor: "#d82679", '&:hover': {
+          bgcolor: '#ad0352'}, letterSpacing: '1px'}}>Clear All</Button>}
 
       </Box>
 
@@ -159,12 +157,11 @@ function MyShelf () {
       </Paper>
 
 
-      <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom: '15px', marginTop: '60px'}}>
+      <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom: '10px', marginTop: '60px'}}>
 
-        <h3>Completed ({completedBooks.length})</h3>
-        {completedBooks.length !== 0 && <Button onClick={handleRemovalCompleted} size="small" variant="contained" sx={{bgcolor: "Red", '&:hover': {
-          bgcolor: 'darkred', 
-        }}}>Clear All</Button>}
+        <Typography><strong>Completed</strong> ({completedBooks.length})</Typography>
+        {completedBooks.length !== 0 && <Button onClick={handleRemovalCompleted} size="small" variant="contained" sx={{bgcolor: "#d82679", '&:hover': {
+          bgcolor: '#ad0352'}, letterSpacing: '1px'}}>Clear All</Button>}
         
       </Box>
 
