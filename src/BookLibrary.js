@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import GenreBooks from './GenreBooks'
 import { BOOKS_API_KEY } from "./Key"
-import './BookLibrary.css'
 import { Container, Typography } from '@mui/material'
 import HeaderImage from './HeaderImage'
 
@@ -48,22 +47,42 @@ function BookLibrary () {
 
 
   return (
-    <Container sx={{marginTop: '200px'}}>
+
+    <Container 
+      sx={{
+        marginTop: '200px'
+      }}
+    >
 
       <HeaderImage />
       
       {category.map((category) => (
+
         <Container key={category}>
-          <Typography sx={{paddingX:'24px', marginTop: '40px', fontSize: '20px', fontWeight: '700', color: 'rgb(109, 109, 109)'}}>{category}</Typography>
+
+          <Typography 
+            sx={{
+              paddingX:'24px', 
+              marginTop: '40px', 
+              fontSize: '20px', 
+              fontWeight: '700', 
+              color: 'rgb(109, 109, 109)'
+            }}
+          >
+            {category}
+          </Typography>
+          
           <GenreBooks 
             category={category}
             fetchedBooks={fetchedBooks[category] || []}
-            
           />
+
         </Container>
+
       ))}
       
     </Container>
+
   )
 }
 

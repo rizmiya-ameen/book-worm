@@ -70,7 +70,13 @@ function SearchResults () {
 
     <Container sx={{marginY: '200px'}}>
 
-      <Box sx={{ display: 'flex', justifyContent: 'center'}}>
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          justifyContent: 'center'
+        }}
+      >
+        
         {!searchedBooks || searchedBooks.length === 0 ? (
           <Box>
             <Typography>
@@ -83,7 +89,9 @@ function SearchResults () {
             Search results here for <strong>{params.queryText || params.Text}</strong>
           </Typography>
         )}
+
       </Box>
+
 
       <Grid container spacing={5} sx={{marginY: '10px'}}>
 
@@ -98,50 +106,99 @@ function SearchResults () {
 
               <Grid key={id} item xs={2.4}>
 
-                <Paper key={id} elevation={3}  sx={{height: '400px', display: 'flex', flexDirection: 'column', position: 'relative'}}>      
+                <Paper 
+                  key={id} 
+                  elevation={3}  
+                  sx={{
+                    height: '400px', 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    position: 'relative', 
+                    transition: '0.4s ease-out',
+                    '&:hover': {transform: 'translateY(10px)'
+                  }}}
+                >      
 
-                <Box sx={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
-                  {imageLinks && imageLinks.thumbnail &&
-                    <Link to={`/${id}`}> 
-                      <img src={imageLinks.thumbnail} alt={title}   className='book-thumbnail' />
-                    </Link>
-                  }
-                </Box>
+                  <Box 
+                    sx={{ 
+                      display: 'flex', 
+                      justifyContent: 'center', 
+                      padding: '10px' 
+                    }}
+                  >
+                    {imageLinks && imageLinks.thumbnail &&
+                      <Link to={`/${id}`}> 
+                        <img src={imageLinks.thumbnail} alt={title} className='book-thumbnail' />
+                      </Link>
+                    }
+                  </Box>
     
-                <Box sx={{paddingX:'15px'}}>
+                  <Box sx={{paddingX:'15px'}}>
 
-                  <Typography sx={{display: '-webkit-box',
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                fontSize: '16px', fontWeight: '800'}}>
-                    {title}
-                  </Typography>
-
-
-                  <Typography sx={{display: '-webkit-box',
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis', fontSize: '13px', color: 'grey', fontWeight: '600', marginTop: '5px'}}>
-                  {authors.length > 1 ? `${authors[0]} and more` : authors[0]}
-                </Typography>
+                    <Typography 
+                      sx={{
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        fontSize: '16px', 
+                        fontWeight: '800'
+                      }}
+                    >
+                      {title}
+                    </Typography>
 
 
-                  {averageRating && ratingsCount &&
-                  <Box sx={{display: 'flex'}}>
-                  
-                  <Rating name="read-only" value={averageRating} readOnly precision={0.5} size='small' sx={{position: 'absolute', bottom: '8px', left: '9px'}}/>
+                    <Typography 
+                      sx={{
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis', 
+                        fontSize: '13px', 
+                        color: 'grey', 
+                        fontWeight: '600', 
+                        marginTop: '5px'
+                      }}
+                    >
+                      {authors.length > 1 ? `${authors[0]} and more` : authors[0]}
+                    </Typography>
 
-                  <Typography sx={{fontSize: '12px', position: 'absolute', bottom: '8px', right: '9px'}}>
-                    ({ratingsCount} reviews)
-                  </Typography>
-                  
-                  </Box>}
-  
-        
-                </Box>
+
+                    {averageRating && ratingsCount &&
+                      <Box sx={{display: 'flex'}}>
+                    
+                        <Rating 
+                          name="read-only" 
+                          value={averageRating} 
+                          readOnly 
+                          precision={0.5} 
+                          size='small' 
+                          sx={{
+                            position: 'absolute', 
+                            bottom: '8px', 
+                            left: '9px'
+                          }}
+                        />
+
+                        <Typography 
+                          sx={{
+                            fontSize: '12px', 
+                            position: 'absolute', 
+                            bottom: '8px', 
+                            right: '9px'
+                          }}
+                        >
+                          ({ratingsCount} reviews)
+                        </Typography>
+                    
+                      </Box>
+                    }
+    
+          
+                  </Box>
 
                 </Paper>
 
@@ -149,6 +206,7 @@ function SearchResults () {
 
               
             )
+
           } else { 
             return null
           }
@@ -159,7 +217,18 @@ function SearchResults () {
 
       {searchedBooks && searchedBooks.length > 0 && 
         <Stack spacing={5} sx={{marginTop: '50px'}}>
-          <Pagination count={5} variant="outlined" shape="rounded" page={currentPage} onChange={handlePageChange} color="primary" sx={{ display: 'flex', justifyContent: 'center',}}/>
+          <Pagination 
+            count={5} 
+            variant="outlined" 
+            shape="rounded" 
+            page={currentPage} 
+            onChange={handlePageChange} 
+            color="primary" 
+            sx={{ 
+              display: 'flex', 
+              justifyContent: 'center',
+            }}
+          />
         </Stack>
       }
 

@@ -8,6 +8,7 @@ import Favorite from './Favorite';
 import MyShelf from './MyShelf'
 import BookLibrary from './BookLibrary';
 import Container from '@mui/material/Container';
+import Footer from './Footer';
 
 function App() {
   
@@ -15,13 +16,13 @@ function App() {
   return (
     <div className="App">
       
-      <Container>
+      <Container >
         
         <Routes>
         
           <Route 
             path='/' 
-            element={<><Header /><BookLibrary /></>} 
+            element={<><Header /><BookLibrary /><Footer /></>} 
           /> 
 
           <Route
@@ -31,7 +32,7 @@ function App() {
 
           <Route
             exact path='/myshelf'
-            element={<MyShelf />}
+            element={<><MyShelf /><Footer /></>}
           />
 
           <Route 

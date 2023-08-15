@@ -7,7 +7,7 @@ function HeaderImage () {
 
   const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
+    
       breakpoint: { max: 4000, min: 1024 },
       items: 1
     },
@@ -26,34 +26,27 @@ function HeaderImage () {
   };
 
   return (
+
     <Container>
-      <Carousel responsive={responsive}  autoPlay={true} autoPlaySpeed={2000} transitionDuration={50} >
-      
-      <img className='image-header' src='/1.png' alt=''/>
 
-      <img className='image-header' src='/3.png' alt=''/>
+      <Carousel 
+        responsive={responsive}  
+        autoPlay={true} 
+        autoPlaySpeed={1500} 
+        transitionDuration={50} 
+      >
       
-      <img className='image-header' src='/2.png' alt=''/>
+        <img className='image-header' src='/1.png' alt=''/>
 
-     
+        <img className='image-header' src='/3.png' alt=''/>
+        
+        <img className='image-header' src='/2.png' alt=''/>
+
       </Carousel>
+
     </Container>
   )
 }
 
 export default HeaderImage
 
-/*
-<Card sx={{ height: '500px', boxShadow: '5' }}>
-          <CardMedia
-          component="img"
-          image="/1.png"
-          alt=''
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        />
-        </Card>
-        
-        <Card sx={{ height: '300px', boxShadow: '5' }}>
-          <img className='image-header' src='/2.png' alt=''/>
-        </Card>
-        */

@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom"
-import { Badge, } from '@mui/material'
-import Tooltip from '@mui/material/Tooltip';
+import { Badge, Tooltip, Box} from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
-import Box from '@mui/material/Box';
 import { useState, useEffect} from 'react'
 
 function HeaderIcons () {
@@ -41,37 +39,53 @@ function HeaderIcons () {
 
   return (
     
-      <Box sx={{display: 'flex', flexDirection: 'row'}}>
-            <Link to={'/favorite'}>
-              <Tooltip title="Favorites" placement="top">
-                <IconButton
-                  size="large"
-                  aria-label="show favorite items"
-                  //color="inherit"
-                  sx={{color: 'white', backgroundColor: '#625694', marginRight: '10px'}}
-                >
-                  <Badge badgeContent={favorite.length} color="error">
-                    <FavoriteIcon />
-                  </Badge>
-                </IconButton>
-              </Tooltip>
-            </Link> 
+    <Box sx={{display: 'flex', flexDirection: 'row'}}>
 
-            <Link to={'/myshelf'}>
-              <Tooltip title="My Shelf" placement="top">
-                <IconButton
-                  size="large"
-                  aria-label="show favorite items"
-                  //color="inherit"
-                  sx={{color: 'white', backgroundColor: '#625694', marginRight: '24px'}}
-                >
-                  <Badge badgeContent={myShelfBooksCount} color="error">
-                    <LibraryBooksIcon />
-                  </Badge>
-                </IconButton>
-              </Tooltip>
-            </Link>
-          </Box>
+      <Link to={'/favorite'}>
+        
+        <Tooltip title="Favorites" placement="top">
+          
+          <IconButton
+            size="large"
+            aria-label="show favorite items"
+            sx={{
+              color: 'white', 
+              backgroundColor: '#625694', 
+              marginRight: '10px'
+            }}
+          >
+            <Badge badgeContent={favorite.length} color="error">
+              <FavoriteIcon />
+            </Badge>
+          </IconButton>
+
+        </Tooltip>
+
+      </Link> 
+
+      <Link to={'/myshelf'}>
+
+        <Tooltip title="My Shelf" placement="top">
+
+          <IconButton
+            size="large"
+            aria-label="show favorite items"
+            sx={{
+              color: 'white', 
+              backgroundColor: '#625694', 
+              marginRight: '24px'
+            }}
+          >
+            <Badge badgeContent={myShelfBooksCount} color="error">
+              <LibraryBooksIcon />
+            </Badge>
+          </IconButton>
+
+        </Tooltip>
+
+      </Link>
+
+    </Box>
     
   )
 }
