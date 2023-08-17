@@ -9,7 +9,7 @@ function BookLibrary () {
 
   const [ fetchedBooks, setFetchedBooks] = useState([])
   
-  const category = ['New Releases', 'Science', 'Health and Fitness', 'Cooking'] 
+  const category = ['Fiction', 'Science', 'Health and Fitness', 'Cooking'] 
 
 
   const handleFetchedBooks = (category) => {

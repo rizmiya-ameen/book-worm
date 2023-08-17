@@ -1,5 +1,7 @@
 # Project Proposal: Book Explorer And Virtual Bookshelf
 
+[Visit the deployed website](https://rizmiya-bookworm.surge.sh/)
+
 The idea is to create a virtual bookshelf where users can explore books, add them to their personal bookshelf, enabling them to organize and track their collection effectively. Users can click on a genre and explore a selection of books from that category, along with book details, including author information, release year, publisher, and descriptions.
 
 ## Features:
