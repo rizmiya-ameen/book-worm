@@ -1,4 +1,4 @@
-# Project Proposal: Book Explorer And Virtual Bookshelf
+# Project Proposal: Book Worm And Virtual Bookshelf
 
 [Visit the deployed website](https://rizmiya-bookworm.surge.sh/)
 
