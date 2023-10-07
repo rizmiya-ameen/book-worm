@@ -20,9 +20,13 @@ The idea is to create a virtual bookshelf where users can explore books, add the
 
 7. **Book Quotes:** Allow users to highlight and save their favorite quotes from books.
 
-# Getting Started with Create React App
+# Getting Started with Book Worm Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <img src="1-Home Page.JPG" alt="Home Page Screenshot">
+</p>
+
+To start the project locally, clone the repository and run `yarn install` to install the dependencies.
 
 ## Available Scripts
 
