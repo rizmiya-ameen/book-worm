@@ -2,7 +2,7 @@ import { Grid, Typography, Box, Container, Button, IconButton, } from '@mui/mate
 import DeleteIcon from '@mui/icons-material/Delete';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import './ShelfSelection.css'
+import './styles/ShelfSelection.css'
 
 function ShelfSelection ({books, handleRemovalofOne, handleMoveToNext, buttonText}) {
 

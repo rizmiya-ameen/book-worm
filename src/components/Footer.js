@@ -1,6 +1,6 @@
 import { Container, Box} from '@mui/material' 
 import React, { useState, useEffect } from 'react';
-import './Footer.css'
+import '../styles/Footer.css'
 
 function Footer () {
   const [isVisible, setIsVisible] = useState(false);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Favorite.css'
+import './styles/Favorite.css'
 import { AppBar, Grid, Typography, Box, Paper, Container, Button, IconButton, Toolbar, } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
 

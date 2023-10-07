@@ -1,29 +1,29 @@
-import './App.css';
+import './styles/App.css';
 import { Routes, Route } from 'react-router-dom'
 import BookDetail from './BookDetail';
 import NotFoundPage from './NotFoundPage'
 import SearchResults from './SearchResults';
-import Header from './Header';
+import Header from './components/Header';
 import Favorite from './Favorite';
 import MyShelf from './MyShelf'
 import BookLibrary from './BookLibrary';
 import Container from '@mui/material/Container';
-import Footer from './Footer';
+import Footer from './components/Footer';
 
 function App() {
-  
+
 
   return (
     <div className="App">
-      
+
       <Container >
-        
+
         <Routes>
-        
-          <Route 
-            path='/' 
-            element={<><Header /><BookLibrary /><Footer /></>} 
-          /> 
+
+          <Route
+            path='/'
+            element={<div data-testid="header-component"><Header /><BookLibrary /><Footer /></div>}
+          />
 
           <Route
             exact path='/favorite'
@@ -35,39 +35,39 @@ function App() {
             element={<><MyShelf /><Footer /></>}
           />
 
-          <Route 
+          <Route
             path=':bookID'
             element={<><BookDetail /></>}
-          /> 
-          
-          <Route 
-            path='/search' 
-            element={<><Header /></>} 
-          /> 
+          />
 
-          <Route 
+          <Route
+            path='/search'
+            element={<><Header /></>}
+          />
+
+          <Route
             path='/search/:queryText'
             element={<><SearchResults /><Header /></>}
           />
 
-          <Route 
-            path='/genre' 
-            element={null} 
-          /> 
+          <Route
+            path='/genre'
+            element={null}
+          />
 
-          <Route 
+          <Route
             path='/genre/:Text'
             element={<><SearchResults /><Header /></>}
           />
 
-          <Route 
-            path='*' 
+          <Route
+            path='*'
             element={<NotFoundPage />}
           />
 
         </Routes>
       </Container>
-  
+
     </div>
   );
 }

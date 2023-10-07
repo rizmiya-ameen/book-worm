@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import GenreBooks from './GenreBooks'
-import { BOOKS_API_KEY } from "./Key"
+import { BOOKS_API_KEY } from "./config/Key"
 import { Container, Typography } from '@mui/material'
-import HeaderImage from './HeaderImage'
+import HeaderImage from './components/HeaderImage'
 
 
 function BookLibrary () {

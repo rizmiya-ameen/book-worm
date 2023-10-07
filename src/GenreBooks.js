@@ -1,4 +1,4 @@
-import './GenreBooks.css'
+import './styles/GenreBooks.css'
 import { Link } from 'react-router-dom'
 import { Grid, Paper, Box, Typography, Container, Rating} from '@mui/material'
 

@@ -1,7 +1,7 @@
 import { useNavigate, Outlet, Link} from "react-router-dom"
 import { useState } from "react"
 import * as React from 'react';
-import { Search, SearchIconWrapper, StyledInputBase } from './SearchStyles'
+import { Search, SearchIconWrapper, StyledInputBase } from '../SearchStyles'
 import { AppBar, Toolbar, Box, Button, FormControl, Tabs, Tab } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import HeaderIcons from './HeaderIcons';

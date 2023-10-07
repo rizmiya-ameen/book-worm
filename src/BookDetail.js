@@ -1,10 +1,10 @@
 import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect} from 'react'
-import { BOOKS_API_KEY } from "./Key"
+import { BOOKS_API_KEY } from "./config/Key"
 import { Typography, Box, Paper, Container, Button, AppBar, Toolbar, } from '@mui/material'
 import GoogleIcon from '@mui/icons-material/Google';
 import NotFoundPage from './NotFoundPage'
-import BookDetailsHeader from './BookDetailsHeader';
+import BookDetailsHeader from './components/BookDetailsHeader';
 
 
 function BookDetail () {
