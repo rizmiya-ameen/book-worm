@@ -1,31 +1,31 @@
-import { Container, Box} from '@mui/material' 
-import React, { useState, useEffect } from 'react';
+import { Container, Box } from '@mui/material'
+import React, { useState, useEffect } from 'react'
 import '../styles/Footer.css'
 
-function Footer () {
-  const [isVisible, setIsVisible] = useState(false);
+const Footer = () => {
+  const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 200) {
-        setIsVisible(true);
+        setIsVisible(true)
       } else {
-        setIsVisible(false);
+        setIsVisible(false)
       }
-    };
+    }
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll)
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
-    });
-  };
+      behavior: 'smooth'
+    })
+  }
 
   return (
 
@@ -44,11 +44,8 @@ function Footer () {
       </Box>
 
     </Container>
-    
+
   )
 }
 
 export default Footer
-
-
-

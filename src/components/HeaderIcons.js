@@ -1,56 +1,55 @@
-import { Link } from "react-router-dom"
-import { Badge, Tooltip, Box} from '@mui/material'
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import IconButton from '@mui/material/IconButton';
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
-import { useState, useEffect} from 'react'
+import { Link } from 'react-router-dom'
+import { Badge, Tooltip, Box } from '@mui/material'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import IconButton from '@mui/material/IconButton'
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks'
+import React, { useState, useEffect } from 'react'
 
-function HeaderIcons () {
-
-  const [favorite, setFavorite] = useState ([])
-  const [toReadBooks, setToReadBooks] = useState ([])
-  const [readingBooks, setReadingBooks] = useState ([])
-  const [completedBooks, setCompletedBooks] = useState ([])
+const HeaderIcons = () => {
+  const [favorite, setFavorite] = useState([])
+  const [toReadBooks, setToReadBooks] = useState([])
+  const [readingBooks, setReadingBooks] = useState([])
+  const [completedBooks, setCompletedBooks] = useState([])
 
   const myShelfBooksCount = (toReadBooks.length + readingBooks.length + completedBooks.length)
 
   useEffect(() => {
     // Get favorites from localStorage on component mount
-    const storedFavorites = localStorage.getItem('favoriteBooks');
+    const storedFavorites = localStorage.getItem('favoriteBooks')
     if (storedFavorites) {
-      setFavorite(JSON.parse(storedFavorites));
+      setFavorite(JSON.parse(storedFavorites))
     }
-    const storedToReadBooks = localStorage.getItem('toReadBooks');
+    const storedToReadBooks = localStorage.getItem('toReadBooks')
     if (storedToReadBooks) {
-      setToReadBooks(JSON.parse(storedToReadBooks));
+      setToReadBooks(JSON.parse(storedToReadBooks))
     }
-    const storedReadingBooks = localStorage.getItem('readingBooks');
+    const storedReadingBooks = localStorage.getItem('readingBooks')
     if (storedReadingBooks) {
-      setReadingBooks(JSON.parse(storedReadingBooks));
+      setReadingBooks(JSON.parse(storedReadingBooks))
     }
 
-    const storedCompletedBooks = localStorage.getItem('completedBooks');
+    const storedCompletedBooks = localStorage.getItem('completedBooks')
     if (storedCompletedBooks) {
-      setCompletedBooks(JSON.parse(storedCompletedBooks));
+      setCompletedBooks(JSON.parse(storedCompletedBooks))
     }
-  }, []);
+  }, [])
 
   console.log(myShelfBooksCount)
 
   return (
-    
-    <Box sx={{display: 'flex', flexDirection: 'row'}}>
+
+    <Box sx={{ display: 'flex', flexDirection: 'row' }}>
 
       <Link to={'/favorite'}>
-        
+
         <Tooltip title="Favorites" placement="top">
-          
+
           <IconButton
             size="large"
             aria-label="show favorite items"
             sx={{
-              color: 'white', 
-              backgroundColor: '#625694', 
+              color: 'white',
+              backgroundColor: '#625694',
               marginRight: '10px'
             }}
           >
@@ -61,7 +60,7 @@ function HeaderIcons () {
 
         </Tooltip>
 
-      </Link> 
+      </Link>
 
       <Link to={'/myshelf'}>
 
@@ -71,8 +70,8 @@ function HeaderIcons () {
             size="large"
             aria-label="show favorite items"
             sx={{
-              color: 'white', 
-              backgroundColor: '#625694', 
+              color: 'white',
+              backgroundColor: '#625694',
               marginRight: '24px'
             }}
           >
@@ -86,7 +85,7 @@ function HeaderIcons () {
       </Link>
 
     </Box>
-    
+
   )
 }
 

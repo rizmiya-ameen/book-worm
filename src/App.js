@@ -1,3 +1,4 @@
+import React from 'react'
 import './styles/App.css';
 import { Routes, Route } from 'react-router-dom'
 import BookDetail from './BookDetail';
@@ -10,14 +11,11 @@ import BookLibrary from './BookLibrary';
 import Container from '@mui/material/Container';
 import Footer from './components/Footer';
 
-function App() {
 
-
+const App = () => {
   return (
     <div className="App">
-
       <Container >
-
         <Routes>
 
           <Route
@@ -71,6 +69,8 @@ function App() {
     </div>
   );
 }
+
+
 
 export default App;
 

@@ -1,10 +1,10 @@
 import './styles/SearchResults.css'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams, Link } from "react-router-dom"
 import { BOOKS_API_KEY } from "./config/Key"
 import { Pagination, Stack, Grid, Typography, Box, Paper, Container, Rating } from '@mui/material'
 
-function SearchResults() {
+const SearchResults = () => {
 
   const params = useParams()
 
