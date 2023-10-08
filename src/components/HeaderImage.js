@@ -1,13 +1,13 @@
-import { Container, } from '@mui/material'
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
+import React from 'react'
+import { Container } from '@mui/material'
+import Carousel from 'react-multi-carousel'
+import 'react-multi-carousel/lib/styles.css'
 import '../styles/HeaderImage.css'
 
-function HeaderImage () {
-
+const HeaderImage = () => {
   const responsive = {
     superLargeDesktop: {
-    
+
       breakpoint: { max: 4000, min: 1024 },
       items: 1
     },
@@ -23,24 +23,24 @@ function HeaderImage () {
       breakpoint: { max: 464, min: 0 },
       items: 1
     }
-  };
+  }
 
   return (
 
     <Container>
 
-      <Carousel 
-        responsive={responsive}  
-        autoPlay={true} 
-        autoPlaySpeed={1500} 
-        transitionDuration={50} 
+      <Carousel
+        responsive={responsive}
+        autoPlay={true}
+        autoPlaySpeed={1500}
+        transitionDuration={50}
       >
-      
-        <img className='image-header' src='/1.png' alt=''/>
 
-        <img className='image-header' src='/3.png' alt=''/>
-        
-        <img className='image-header' src='/2.png' alt=''/>
+        <img className='image-header' src='/1.png' alt='' />
+
+        <img className='image-header' src='/3.png' alt='' />
+
+        <img className='image-header' src='/2.png' alt='' />
 
       </Carousel>
 
@@ -49,4 +49,3 @@ function HeaderImage () {
 }
 
 export default HeaderImage
-
