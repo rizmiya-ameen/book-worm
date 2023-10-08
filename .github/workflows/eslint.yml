@@ -24,7 +24,4 @@ jobs:
         run: npm install
 
       - name: Run ESLint
-        run: npx eslint .
-
-      - name: Check ESLint status
-        run: npx eslint --quiet --exit-code .
+        run: npm run lint

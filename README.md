@@ -56,4 +56,10 @@ Your app is ready to be deployed!
 
 ### Deployment
 
-### `yarn build` 
+### `yarn build`
+
+
+## Author 👨‍💻
+
+[Rizmiya Ameen](https://github.com/rizmiya-ameen)
+
